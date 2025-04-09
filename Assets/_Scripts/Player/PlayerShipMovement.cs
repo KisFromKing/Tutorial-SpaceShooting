@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerShipMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float moveSpeed = 0.1f;
     private Vector3 mousePos = new();
 
     void Update()
@@ -14,13 +14,13 @@ public class PlayerShipMovement : MonoBehaviour
 
     private void GetMousePos()
     {
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos = InputManager.Instance.mouseWorldPos;
     }
 
     private void ResetZAxis()
     {
         mousePos.z = 0;
-    }
+    }   
 
     private void HandleMovement()
     {
