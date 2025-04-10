@@ -3,28 +3,37 @@ using UnityEngine;
 public class PlayerShipMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 0.1f;
-    private Vector3 mousePos = new();
+    private Vector3 targetPos = new();
 
     void Update()
     {
-        GetMousePos();
+        GetTargetPos();
         ResetZAxis();
+        LookAtTargetPos();
         HandleMovement();
     }
 
-    private void GetMousePos()
+    private void LookAtTargetPos()
     {
-        mousePos = InputManager.Instance.mouseWorldPos;
+        Vector3 diff = this.targetPos - transform.parent.position;
+        diff.Normalize();
+        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        transform.parent.rotation = Quaternion.Euler(0f, 0f, rot_z + 90);
+    }
+
+    private void GetTargetPos()
+    {
+        targetPos = InputManager.Instance.MouseWorldPos;
     }
 
     private void ResetZAxis()
     {
-        mousePos.z = 0;
+        targetPos.z = 0;
     }   
 
     private void HandleMovement()
     {
-        Vector3 newPos = Vector3.Lerp(transform.parent.transform.position, mousePos,moveSpeed);
+        Vector3 newPos = Vector3.Lerp(transform.parent.transform.position, targetPos,moveSpeed);
         transform.parent.position = newPos;
     }
 }

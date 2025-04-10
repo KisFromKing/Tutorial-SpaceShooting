@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public Vector3 mouseWorldPos = new();
+    private Vector3 mouseWorldPos = new();
+    public Vector3 MouseWorldPos { get { return mouseWorldPos; } }
+
     private static InputManager instance;
     public static InputManager Instance {get { return instance; }}
 
