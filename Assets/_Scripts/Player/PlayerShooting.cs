@@ -12,7 +12,7 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
-        
+        HandleShotting();
     }
 
     private void HandleShotting()
@@ -22,6 +22,6 @@ public class PlayerShooting : MonoBehaviour
             return;
         }
 
-        Instantiate(bulletPrefap);
+        Instantiate(bulletPrefap,transform.parent.position,transform.parent.rotation);
     }
 }
